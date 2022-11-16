@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!-- 문서의 유효성을 검사해주는 역할 : 문서에 맞지 않는 양식이 들어오면 알리는 역할 -->
+<properties>
+	<entry key="loginMember">
+		SELECT
+		        USER_NO,
+		        USER_ID,
+		        USER_PWD,
+		        USER_NAME,
+		        PHONE,
+		        EMAIL,
+		        ADDRESS,
+		        INTEREST,
+		        ENROLL_DATE,
+		        MODIFY_DATE,
+		        STATUS
+		  FROM 
+		        MEMBER
+		 WHERE 
+		        USER_ID = ?
+		   AND 
+		        USER_PWD = ? 
+		   AND 
+		        STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertMember">
+		INSERT
+	 	  INTO 
+		        MEMBER
+		        (
+		        USER_NO,
+		        USER_ID,
+		        USER_PWD,
+		        USER_NAME,
+		        PHONE,
+		        EMAIL,
+		        ADDRESS,
+		        INTEREST        
+	    	    )
+	    VALUES
+		        (
+		        SEQ_UNO.NEXTVAL,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?,
+		        ?
+		        )
+	</entry>
+	
+	<entry key="updateMember">
+		UPDATE 
+		        MEMBER
+		   SET 
+		        USER_NAME = ?,
+		        PHONE = ?,
+		        EMAIL = ?,
+		        ADDRESS = ?,
+		        INTEREST = ?,
+		        MODIFY_DATE = SYSDATE
+		 WHERE
+		        USER_ID = ?
+		   AND
+		        STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT
+				USER_NO,
+				USER_ID,
+				USER_PWD,
+				USER_NAME,
+				PHONE,
+				EMAIL,
+				ADDRESS,
+				INTEREST,
+				ENROLL_DATE,
+				MODIFY_DATE,
+	 			STATUS
+		  FROM
+				MEMBER
+		 WHERE
+				USER_ID = ?
+	</entry>
+	
+	<entry key="updatePwdMember">
+	    UPDATE
+		        MEMBER
+	       SET
+		        USER_PWD = ?,
+		        MODIFY_DATE = SYSDATE
+	     WHERE
+		        USER_ID = ?
+		   AND
+		        USER_PWD = ?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE
+	        	MEMBER
+	   	   SET
+	       		STATUS = 'N',
+	        	MODIFY_DATE = SYSDATE <!-- 안해도됨 -->
+	 	 WHERE
+	       		USER_ID = ?
+		   AND
+	        	USER_PWD = ?
+	 	   AND
+	        	STATUS = 'Y'  <!-- 안해도됨 -->
+	
+	</entry>
+	
+</properties>

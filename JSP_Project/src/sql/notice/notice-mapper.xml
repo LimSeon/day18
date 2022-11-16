@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!-- 문서의 유효성을 검사해주는 역할 : 문서에 맞지 않는 양식이 들어오면 알리는 역할 -->
+<properties>
+	<entry key="selectNoticeList">
+		SELECT 
+		        NOTICE_NO, 
+		        NOTICE_TITLE, 
+		        NOTICE_CONTENT, 
+		        USER_ID, 
+		        COUNT, 
+		        CREATE_DATE
+		  FROM 
+		        NOTICE N
+		  JOIN 
+		        MEMBER ON(NOTICE_WRITER = USER_NO)
+		 WHERE 
+		        N.STATUS = 'Y'
+		 ORDER 
+		    BY
+		        CREATE_DATE DESC
+	</entry>
+	
+	<entry key="insertNotice">
+	
+		INSERT
+		  INTO
+		        NOTICE
+		        (
+		        NOTICE_NO,
+		        NOTICE_TITLE,
+		        NOTICE_CONTENT,
+		        NOTICE_WRITER
+		        )
+		VALUES 
+		        (
+		        SEQ_NNO.NEXTVAL,
+		        ?,
+		        ?,
+		        ?
+		        )
+	
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE 
+		        NOTICE
+		   SET 
+		        COUNT = COUNT + 1
+		 WHERE
+		        NOTICE_NO = ?
+		   AND 
+		    	STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT
+		        NOTICE_NO,
+		        NOTICE_TITLE,
+		        NOTICE_CONTENT,
+		        USER_ID,
+		        CREATE_DATE
+		  FROM
+		        NOTICE N
+		  JOIN  
+		        MEMBER ON(NOTICE_WRITER = USER_NO)
+		 WHERE
+		        NOTICE_NO = ?
+		   AND
+		        N.STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE 
+		        NOTICE
+		   SET
+		        NOTICE_TITLE = ?,
+		        NOTICE_CONTENT = ?
+		 WHERE
+		        NOTICE_NO = ?
+		   AND
+		        STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="deleteNotice">
+		UPDATE
+				NOTICE
+		   SET
+				STATUS = 'N'
+	     WHERE 
+				NOTICE_NO = ?
+	       AND
+				STATUS = 'Y'
+		
+	</entry>
+</properties>
